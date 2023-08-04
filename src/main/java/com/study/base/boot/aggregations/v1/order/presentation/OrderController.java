@@ -4,7 +4,7 @@ import com.study.base.boot.config.annotations.Get;
 import com.study.base.boot.config.annotations.Post;
 import com.study.base.boot.config.annotations.RestApi;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.text.View;
@@ -17,9 +17,9 @@ public class OrderController {
     public List<String> getOrders(){
         return List.of("A","B","C");
     }
-    @Post
-    public List<String> createOrders(List<String> reqOrders){
 
+    @Post
+    public List<String> createOrders(@RequestBody List<String> reqOrders){
         return reqOrders;
     }
 }
