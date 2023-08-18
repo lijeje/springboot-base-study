@@ -28,6 +28,11 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // mysql
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+
+	// mysql, JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 
 tasks.named('test') {
