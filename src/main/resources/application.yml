@@ -47,3 +47,9 @@ springdoc:
     disable-swagger-default-url: true
 
     display-query-params-without-oauth2: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        orm.jdbc.bind: trace
