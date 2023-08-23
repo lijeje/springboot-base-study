@@ -1,25 +1,38 @@
 package com.study.base.boot.aggregations.v1.order.presentation;
 
+import com.study.base.boot.aggregations.v1.order.application.OrderService;
+import com.study.base.boot.aggregations.v1.order.application.dto.req.CreateOrder;
+import com.study.base.boot.aggregations.v1.order.presentation.dto.req.CreateOrderDto;
+import com.study.base.boot.aggregations.v1.order.presentation.dto.req.CreateOrdersDto;
 import com.study.base.boot.config.annotations.Get;
 import com.study.base.boot.config.annotations.Post;
 import com.study.base.boot.config.annotations.RestApi;
-import org.springframework.web.bind.annotation.GetMapping;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.swing.text.View;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestApi("/v1/orders")
+@Slf4j
+@RequiredArgsConstructor
 public class OrderController {
 
+    private final OrderService orderService;
     @Get
-    public List<String> getOrders(){
-        return List.of("A","B","C");
+    public List<String> getOrders() {
+
+        return List.of("A", "B", "C");
     }
 
     @Post
-    public List<String> createOrders(@RequestBody List<String> reqOrders){
-        return reqOrders;
+    public List<Long> createOrders(@RequestBody @Valid CreateOrdersDto request) {
+        final List<CreateOrder> createOrderList = request.getCreateOrders().stream().map(CreateOrderDto::toCreate).toList();
+        return orderService.createOrders(createOrderList);
     }
+
+
 }
