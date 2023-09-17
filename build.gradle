@@ -33,6 +33,18 @@ dependencies {
 
 	// mysql, JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // MapStruct
+
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+
+
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.5.5.Final" // MapStruct 롬북보다 꼭 아래 있어야한다.
+
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0" // MapStruct
+
 }
 
 tasks.named('test') {

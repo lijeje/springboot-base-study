@@ -5,6 +5,7 @@ public enum ItemStatusEnum {
     STOP("판매중단")
     ;
 
+
     private String status;
 
     ItemStatusEnum(String status) {

@@ -4,17 +4,20 @@ import com.study.base.boot.aggregations.v1.order.application.dto.req.CreateOrder
 import com.study.base.boot.aggregations.v1.order.domain.entity.OrderItemEntity;
 import com.study.base.boot.aggregations.v1.order.domain.enumerations.OrderStatusEnum;
 import com.study.base.boot.aggregations.v1.order.infrastructure.repository.OrderRepository;
+import com.study.base.boot.config.mapstruct.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
@@ -26,10 +29,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
-@Builder
+@SuperBuilder
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-public class OrderAggregate {
+@Transactional(readOnly = true)
+public class OrderAggregate extends BaseEntity {
     //jpa개념에서 Entity는 테이블이랑 맵핑되는 객체를 의미 어떤 테이블인지는 @Table에 정의
     //@DynamicInsert는 성능이슈가 있고 이미 자기 자신을 넣어주기때문에 사용하지 않음 .
     @Id

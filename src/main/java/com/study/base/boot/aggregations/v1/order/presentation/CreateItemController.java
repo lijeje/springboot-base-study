@@ -20,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CreateItemController {
     private final CreateItemService createItemService;
+
     @Post
     public List<Long> createItems(@RequestBody @Valid CreateItemsDto request) {
         final List<CreateItem> createItemList = request.getCreateItems().stream().map(CreateItemDto::toCreate).toList();

@@ -3,6 +3,7 @@ package com.study.base.boot.aggregations.v1.order.domain.entity;
 import com.study.base.boot.aggregations.v1.order.application.dto.req.CreateOrderItem;
 import com.study.base.boot.aggregations.v1.order.domain.OrderAggregate;
 import com.study.base.boot.aggregations.v1.order.domain.enumerations.OrderItemStatusEnum;
+import com.study.base.boot.config.mapstruct.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +26,7 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-public class OrderItemEntity {
+public class OrderItemEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -53,6 +54,9 @@ public class OrderItemEntity {
         return this;
     }
 
+    /*
+    *
+    */
     public OrderItemEntity patch(CreateOrderItem createOrderItem){
         this.itemId  = createOrderItem.getItemId();
         this.itemName = StringUtils.defaultIfEmpty(createOrderItem.getItemName(), this.itemName);
