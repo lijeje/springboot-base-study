@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -62,6 +63,18 @@ public class OrderService {
     public Page<OrderAggregate> listByStatus(OrderStatusEnum orderStatus, Pageable pageable){
         Page<OrderAggregate> allByStatus = orderRepository.findAllByStatus(orderStatus, pageable);
         return allByStatus;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<OrderAggregate> getPeriodAndPriceList(LocalDateTime searchStartDate
+                                                    , LocalDateTime searchEndDate
+                                                    , int minPrice
+                                                    , Pageable pageable) {
+        Page<OrderAggregate> getConditionsList = orderRepository.getPeriodAndPriceList(searchStartDate
+                                                                                     , searchEndDate
+                                                                                     , minPrice
+                                                                                     , pageable);
+        return getConditionsList;
     }
 
 }

@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.data.domain.Page;
 import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -92,5 +94,16 @@ public class OrderAggregate extends BaseEntity {
         this.items.add(orderItem);
 
         return this;
+    }
+
+    public Page<OrderAggregate> getPeriodAndPriceList(LocalDateTime searchStartDate
+                                                    , LocalDateTime searchEndDate
+                                                    , int minPrice
+                                                    , Pageable pageable) {
+//        Page<OrderAggregate> getPeriodAndPriceList = orderRepository.getPeriodAndPriceList(searchStartDate
+//                                                                                         , searchEndDate
+//                                                                                         , minPrice
+//                                                                                         , pageable);
+        return getPeriodAndPriceList;
     }
 }

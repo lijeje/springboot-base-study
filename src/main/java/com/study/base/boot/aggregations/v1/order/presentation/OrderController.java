@@ -23,7 +23,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +64,28 @@ public class OrderController {
       OrderDto orderDto = orderEDMapper.toDto(orderAggregate);
       return orderDto;
 
+    }
+
+
+
+
+    @Get("/conditions")
+    public Page<OrderDto> getConditionsList(@RequestParam(value = "searchStartDate", required = false) LocalDateTime searchStartDate
+                                          , @RequestParam(value = "searchEndDate", required = false) LocalDateTime searchEndDate
+                                          , @RequestParam int minPrice
+                                          , @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        Page<OrderAggregate> pageOrders = orderService.getPeriodAndPriceList(
+                searchStartDate,
+                searchEndDate,
+                minPrice,
+                pageable
+        );
+        List<OrderAggregate> orders = pageOrders.getContent();
+
+        List<OrderDto> orderDtos = orders.stream().map(orderEDMapper::toDto).toList();
+
+        return new PageImpl<>(orderDtos, pageable, pageOrders.getTotalElements());
     }
 
 
